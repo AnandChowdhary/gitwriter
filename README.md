@@ -1,7 +1,7 @@
 # GitWriter
 
 ## Project setup
-```
+``` 
 yarn install
 ```
 
