@@ -1,30 +1,19 @@
-# GitWriter
+# 📝  GitWriter
 
-## Project setup
-``` 
-yarn install
-```
+GitWriter is the easiest way to version control your thoughts. Write in Markdown, auto save every minute like Google Docs. Easy.
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## ⭐ Usage
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+Currently, a personal access token is required to use this service. Eventually, a "Login with GitHub" button would be preferred. The service is frontend-only and only uses local storage for your token.
 
-### Run your tests
-```
-yarn run test
+## 🛠 Development
+
+Start development server with:
+
+```bash
+yarn serve
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
+## License
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
+MIT
