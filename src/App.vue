@@ -3,7 +3,8 @@
     <header>
       <router-link class="logo" to="/">GitWriter</router-link>
       <div>
-        <button type="button" @click="forget">Forget token</button>
+        <button type="button" @click="forgetToken">Forget token</button>
+        <button type="button" @click="forgetRepos">Forget repos</button>
       </div>
     </header>
     <router-view />
@@ -15,20 +16,23 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class App extends Vue {
-  forget() {
+  forgetToken() {
     this.$store.commit("logout");
     this.$router.push("/");
   }
+  forgetRepos() {
+    this.$store.commit("resetRepos");
+    this.$router.push("/repos");
+  }
 }
 </script>
-
 
 <style lang="scss" scoped>
 #app {
   font: menu;
   font-size: 100%;
   max-width: 720px;
-  margin: 2rem auto;
+  margin: 2rem;
 }
 header {
   text-align: center;
@@ -40,6 +44,9 @@ header {
     border: 0;
     padding: 0;
     margin-top: 1rem;
+    + button {
+      margin-left: 1rem;
+    }
   }
   a {
     font-weight: bold;

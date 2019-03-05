@@ -2,7 +2,12 @@
   <main>
     <form @submit.prevent="login">
       <label>Token</label>
-      <input v-model="token" type="text" placeholder="Enter your token" required />
+      <input
+        v-model="token"
+        type="text"
+        placeholder="Enter your token"
+        required
+      />
       <button type="submit">Start using GitWriter &rarr;</button>
     </form>
   </main>
