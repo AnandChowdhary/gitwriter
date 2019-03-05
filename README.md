@@ -1,4 +1,4 @@
-# gitwriter
+# GitWriter
 
 ## Project setup
 ```
