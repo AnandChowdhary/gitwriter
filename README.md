@@ -31,3 +31,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Sample
 
 - Line 1
+- Line 2
