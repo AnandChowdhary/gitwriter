@@ -4,10 +4,10 @@
       <router-link class="logo" to="/">GitWriter</router-link>
       <div>
         <button type="button" @click="forgetToken">Forget token</button>
-        <button type="button" @click="forgetRepos">Forget repos</button>
+        <!-- <button type="button" @click="forgetRepos">Forget repos</button> -->
       </div>
     </header>
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 

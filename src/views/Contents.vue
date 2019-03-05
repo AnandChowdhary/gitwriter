@@ -1,16 +1,24 @@
 <template>
   <main>
     <div v-if="loading">Loading...</div>
+    <Writer
+      v-else-if="data.type === 'file'"
+      :file="data"
+      :token="token"
+      :repo="repo"
+      :path="path"
+      >{{ data }}</Writer
+    >
     <ul v-else>
-      <li v-for="(repo, index) in data" :key="`repo_${index}`">
-        <router-link :to="`/repos/${encode(repo.full_name)}/${encode('/')}`">
-          <span>{{ repo.full_name }}</span>
+      <li v-for="(file, index) in data" :key="`file_${index}`">
+        <router-link :to="`/repos/${encode(repo)}/${encode(file.path)}`">
+          <span>{{ file.name }}</span>
         </router-link>
       </li>
       <p>
-        <button>{{ page }}</button>
-        <button v-if="page > 1" @click="page--">&larr; Prev</button>
-        <button v-if="data.length === 30" @click="page++">Next &rarr;</button>
+        <!-- <button>{{page}}</button> -->
+        <!-- <button v-if="page > 1" @click="page--">&larr; Prev</button>
+        <button v-if="data.length === 30" @click="page++">Next &rarr;</button> -->
       </p>
     </ul>
   </main>
@@ -19,33 +27,33 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import axios from "axios";
+import Writer from "@/components/Writer.vue";
 
-@Component({})
+@Component({
+  components: {
+    Writer
+  }
+})
 export default class Home extends Vue {
   private token: string = "";
   private data: any = {};
-  private page: number = 1;
   private loading: boolean = false;
-  @Watch("page")
-  onPageChanged() {
-    this.loadData();
-  }
+  private repo: string = "";
+  private path: string = "";
   mounted() {
     if (!this.$store.state.token) return this.$router.replace("/");
     this.token = this.$store.state.token;
-    if (this.$store.state.repos.length) {
-      this.data = this.$store.state.repos;
-    } else {
-      this.loadData();
-    }
+    this.repo = atob(this.$route.params.repo);
+    this.path = atob(this.$route.params.path);
+    this.loadData();
   }
   loadData() {
     this.loading = true;
     axios
       .get(
-        `https://api.github.com/user/repos?access_token=${this.token}&page=${
-          this.page
-        }`,
+        `https://api.github.com/repos/${this.repo}/contents/${
+          this.path
+        }?access_token=${this.token}`,
         {
           headers: {
             "User-Agent": "GitWriter"
@@ -65,7 +73,6 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-input,
 button {
   font: inherit;
   padding: 0.5rem 1rem;
