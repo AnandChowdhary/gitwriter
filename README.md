@@ -1,4 +1,4 @@
-# gitwriter
+# GitWriter
 
 ## Project setup
 ```
@@ -13,7 +13,7 @@ yarn run serve
 ### Compiles and minifies for production
 ```
 yarn run build
-```
+``` 
 
 ### Run your tests
 ```
@@ -27,3 +27,8 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Sample
+
+- Line 1
+- Line 2
