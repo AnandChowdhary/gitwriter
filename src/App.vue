@@ -58,3 +58,12 @@ header {
   }
 }
 </style>
+
+<style lang="scss">
+ul {
+  line-height: 2;
+}
+a {
+  color: inherit;
+}
+</style>

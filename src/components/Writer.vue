@@ -3,13 +3,15 @@
     <div>
       <input :value="file.path" disabled />
       <textarea v-model="content" rows="20" />
-      <button type="button" @click.prevent="save" :disabled="loading">
-        <span v-if="loading">Saving...</span>
-        <span v-else>Save</span>
+      <button type="button" @click.prevent="save" :disabled="!dirty || loading">
+        <span v-if="dirty">Save</span>
+        <span v-else-if="loading">Saving...</span>
+        <span v-else>No changes</span>
       </button>
       <button type="button" @click.prevent="deleteFile" :disabled="loading">
         <span>Delete</span>
       </button>
+      <p v-if="lastSaved">Last saved {{timeago(lastSaved)}}</p>
     </div>
   </main>
 </template>
@@ -17,6 +19,8 @@
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import axios from "axios";
+// @ts-ignore
+import time from "time-ago";
 
 @Component({})
 export default class Home extends Vue {
@@ -24,18 +28,39 @@ export default class Home extends Vue {
   @Prop() token!: any;
   @Prop() repo!: string;
   @Prop() path!: string;
+  private ready: boolean = false;
+  private dirty: boolean = false;
   private loading: boolean = false;
   private content: string = "";
   private sha: string = "";
+  private lastSaved: Date | boolean = false;
+  @Watch("content")
+  onContentChanged() {
+    if (!this.ready) return;
+    this.dirty = true;
+    if (this.lastSaved && typeof this.lastSaved === "object") {
+      if (this.lastSaved.getTime() + 60 * 1000 > new Date().getTime()) {
+        return;
+      }
+    }
+    this.save();
+  }
   mounted() {
     this.sha = this.file.sha;
     this.content = this.decode(this.file.content);
+    setInterval(() => this.$forceUpdate(), 1000);
+    setTimeout(() => (this.ready = true), 10);
+  }
+  timeago(text: Date) {
+    return time.ago(text);
   }
   decode(text: string) {
     return atob(text);
   }
   save() {
     this.loading = true;
+    this.dirty = false;
+    this.lastSaved = new Date();
     const data = {
       content: btoa(this.content),
       sha: this.sha,

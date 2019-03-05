@@ -12,6 +12,8 @@
     <ul v-else>
       <li v-for="(file, index) in data" :key="`file_${index}`">
         <router-link :to="`/repos/${encode(repo)}/${encode(file.path)}`">
+          <span v-if="file.path.indexOf('.') > -1" :style="`background-image: url('https://unpkg.com/file-icon-vectors@1.0.0/dist/icons/vivid/${file.path.split('.')[file.path.split('.').length - 1]}.svg')`" class="bg-icon"></span>
+          <span v-else class="bg-icon"></span>
           <span>{{ file.name }}</span>
         </router-link>
       </li>
@@ -82,5 +84,16 @@ button {
   margin-top: 1rem;
   background-color: whitesmoke;
   color: #000;
+}
+.bg-icon {
+  width: 1.25rem;
+  height: 1.5rem;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 0.75rem;
+  background-image: url("https://unpkg.com/file-icon-vectors@1.0.0/dist/icons/vivid/folder.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 </style>
