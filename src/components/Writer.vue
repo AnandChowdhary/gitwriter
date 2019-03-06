@@ -2,7 +2,11 @@
   <main>
     <div>
       <input :value="file.path" disabled />
-      <textarea v-model="content" rows="20" />
+      <markdown-editor
+        required
+        v-model="content"
+        placeholder="Start writing here..."
+      />
       <button type="button" @click.prevent="save" :disabled="!dirty || loading">
         <span v-if="dirty">Save</span>
         <span v-else-if="loading">Saving...</span>
@@ -21,6 +25,8 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import axios from "axios";
 import { Base64 } from "js-base64";
 // @ts-ignore
+import markdownEditor from "vue-simplemde/src/markdown-editor";
+// @ts-ignore
 import time from "time-ago";
 
 function encode_utf8(s: string) {
@@ -31,7 +37,11 @@ function decode_utf8(s: string) {
   return Base64.decode(s);
 }
 
-@Component({})
+@Component({
+  components: {
+    markdownEditor
+  }
+})
 export default class Home extends Vue {
   @Prop() file!: any;
   @Prop() token!: any;
@@ -111,7 +121,9 @@ export default class Home extends Vue {
         }
       )
       .then(() => {
-        this.$router.push(`/repos/${encode_utf8(this.repo)}/${encode_utf8("/")}`);
+        this.$router.push(
+          `/repos/${encode_utf8(this.repo)}/${encode_utf8("/")}`
+        );
       })
       .catch(error => console.log(error))
       .then(() => (this.loading = false));

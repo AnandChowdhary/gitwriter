@@ -32,7 +32,9 @@ export default class App extends Vue {
   font: menu;
   font-size: 100%;
   max-width: 720px;
-  margin: 2rem;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  line-height: 1.5;
 }
 header {
   text-align: center;
