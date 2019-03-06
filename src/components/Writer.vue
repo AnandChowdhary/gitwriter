@@ -24,6 +24,7 @@
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import axios from "axios";
 import { Base64 } from "js-base64";
+import UAParser from "ua-parser-js";
 // @ts-ignore
 import markdownEditor from "vue-simplemde/src/markdown-editor";
 // @ts-ignore
@@ -53,6 +54,7 @@ export default class Home extends Vue {
   private content: string = "";
   private sha: string = "";
   private lastSaved: Date | boolean = false;
+  private ipInfo?: any;
   @Watch("content")
   onContentChanged() {
     if (!this.ready) return;
@@ -69,6 +71,12 @@ export default class Home extends Vue {
     this.content = this.decode(this.file.content);
     setInterval(() => this.$forceUpdate(), 1000);
     setTimeout(() => (this.ready = true), 10);
+    axios
+      .get("https://ipinfo.io/json?token=07089fada04d89")
+      .then(response => {
+        this.ipInfo = response.data;
+      })
+      .catch(() => {});
   }
   timeago(text: Date) {
     return time.ago(text);
@@ -80,10 +88,18 @@ export default class Home extends Vue {
     this.loading = true;
     this.dirty = false;
     this.lastSaved = new Date();
+    const ua = new UAParser().getResult();
+    let message = `Edited using GitWriter (${ua.browser.name} ${
+      ua.browser.major
+    } on ${ua.os.name} ${ua.os.version}`;
+    if (this.ipInfo) {
+      message += ` in ${this.ipInfo.city}, ${this.ipInfo.country}`;
+    }
+    message += ")";
     const data = {
       content: encode_utf8(this.content),
       sha: this.sha,
-      message: "Update using GitWriter"
+      message
     };
     axios
       .put(
@@ -107,7 +123,7 @@ export default class Home extends Vue {
     this.loading = true;
     const data = {
       sha: this.sha,
-      message: "Update using GitWriter"
+      message: "Delete file using GitWriter"
     };
     axios
       .delete(

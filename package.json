@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "js-base64": "^2.5.1",
     "time-ago": "^0.2.1",
+    "ua-parser-js": "^0.7.19",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/js-base64": "^2.3.1",
+    "@types/ua-parser-js": "^0.7.32",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-typescript": "^3.4.0",
