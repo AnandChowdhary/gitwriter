@@ -1,7 +1,7 @@
 <template>
   <main>
     <div v-if="loading">Loading...</div>
-    <ul v-else>
+    <ul class="list" v-else>
       <li v-for="(repo, index) in data" :key="`repo_${index}`">
         <router-link :to="`/repos/${encode(repo.full_name)}/${encode('/')}`">
           <span>{{ repo.full_name }}</span>

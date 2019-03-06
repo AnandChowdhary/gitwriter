@@ -62,10 +62,13 @@ header {
 </style>
 
 <style lang="scss">
-ul {
+ul.list {
   line-height: 2;
 }
 a {
   color: inherit;
+}
+.cm-formatting-header {
+  opacity: 0.25;
 }
 </style>

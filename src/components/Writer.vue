@@ -116,7 +116,7 @@ export default class Home extends Vue {
       .then(response => {
         this.sha = response.data.content.sha;
       })
-      .catch(error => console.log(error))
+      .catch(() => alert("There was an error saving this!"))
       .then(() => (this.loading = false));
   }
   deleteFile() {
@@ -141,7 +141,7 @@ export default class Home extends Vue {
           `/repos/${encode_utf8(this.repo)}/${encode_utf8("/")}`
         );
       })
-      .catch(error => console.log(error))
+      .catch(() => alert("There was an error deleting this file"))
       .then(() => (this.loading = false));
   }
 }

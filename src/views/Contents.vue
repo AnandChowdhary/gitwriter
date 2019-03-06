@@ -9,7 +9,7 @@
       :path="path"
       >{{ data }}</Writer
     >
-    <ul v-else>
+    <ul class="list" v-else>
       <li v-for="(file, index) in data" :key="`file_${index}`">
         <router-link :to="`/repos/${encode(repo)}/${encode(file.path)}`">
           <span
