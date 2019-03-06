@@ -18,7 +18,7 @@ yarn serve
 - [x] Autosaving
 - [ ] Add support for saving every 2 minutes if it's dirty (interval, not just on text change)
 - [ ] Before unloading the page, make sure it's saved
-
+- [ ] Add login with GitHub (integrate GitHub App, not personal token)
 
 ## License
 
