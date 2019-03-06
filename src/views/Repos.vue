@@ -48,7 +48,7 @@ export default class Home extends Vue {
         }`,
         {
           headers: {
-            "User-Agent": "GitWriter"
+            // "User-Agent": "GitWriter"
           }
         }
       )

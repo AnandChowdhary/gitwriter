@@ -11,7 +11,7 @@
       <button type="button" @click.prevent="deleteFile" :disabled="loading">
         <span>Delete</span>
       </button>
-      <p v-if="lastSaved">Last saved {{timeago(lastSaved)}}</p>
+      <p v-if="lastSaved">Last saved {{ timeago(lastSaved) }}</p>
     </div>
   </main>
 </template>
@@ -19,8 +19,17 @@
 <script lang="ts">
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import axios from "axios";
+import { Base64 } from "js-base64";
 // @ts-ignore
 import time from "time-ago";
+
+function encode_utf8(s: string) {
+  return Base64.encode(s);
+}
+
+function decode_utf8(s: string) {
+  return Base64.decode(s);
+}
 
 @Component({})
 export default class Home extends Vue {
@@ -55,14 +64,14 @@ export default class Home extends Vue {
     return time.ago(text);
   }
   decode(text: string) {
-    return atob(text);
+    return decode_utf8(text);
   }
   save() {
     this.loading = true;
     this.dirty = false;
     this.lastSaved = new Date();
     const data = {
-      content: btoa(this.content),
+      content: encode_utf8(this.content),
       sha: this.sha,
       message: "Update using GitWriter"
     };
@@ -74,7 +83,7 @@ export default class Home extends Vue {
         data,
         {
           headers: {
-            "User-Agent": "GitWriter"
+            // "User-Agent": "GitWriter"
           }
         }
       )
@@ -97,12 +106,12 @@ export default class Home extends Vue {
         }?access_token=${this.token}`,
         {
           headers: {
-            "User-Agent": "GitWriter"
+            // "User-Agent": "GitWriter"
           }
         }
       )
       .then(() => {
-        this.$router.push(`/repos/${btoa(this.repo)}/${btoa("/")}`);
+        this.$router.push(`/repos/${encode_utf8(this.repo)}/${encode_utf8("/")}`);
       })
       .catch(error => console.log(error))
       .then(() => (this.loading = false));
