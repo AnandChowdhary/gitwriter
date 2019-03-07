@@ -7,13 +7,17 @@
         v-model="content"
         placeholder="Start writing here..."
       />
+      <div>
+        <input type="checkbox" id="auto" v-model="autosave">
+        <span><label for="auto">Autosave every</label> <input type="number" v-model="autosaveTime"> seconds</span>
+      </div>
       <button type="button" @click.prevent="save" :disabled="!dirty || loading">
         <span v-if="dirty">Save</span>
         <span v-else-if="loading">Saving...</span>
         <span v-else>No changes</span>
       </button>
       <button type="button" @click.prevent="deleteFile" :disabled="loading">
-        <span>Delete</span>
+        <span>Delete this file</span>
       </button>
       <p v-if="lastSaved">Last saved {{ timeago(lastSaved) }}</p>
     </div>
@@ -55,21 +59,44 @@ export default class Home extends Vue {
   private sha: string = "";
   private lastSaved: Date | boolean = false;
   private ipInfo?: any;
+  private interval: any;
+  private listener: Function;
+  private autosave: boolean = false;
+  private autosaveTime: number = 120;
   @Watch("content")
   onContentChanged() {
     if (!this.ready) return;
     this.dirty = true;
-    if (this.lastSaved && typeof this.lastSaved === "object") {
-      if (this.lastSaved.getTime() + 60 * 1000 > new Date().getTime()) {
-        return;
+  }
+  constructor() {
+    super();
+    this.listener = (event: Event) => {
+      if (this.dirty) {
+        event.preventDefault();
+        // @ts-ignore
+        event.returnValue = "";
       }
     }
-    this.save();
   }
   mounted() {
     this.sha = this.file.sha;
     this.content = this.decode(this.file.content);
-    setInterval(() => this.$forceUpdate(), 1000);
+    this.interval = setInterval(() => {
+      this.$forceUpdate();
+      let shouldSave = false;
+      if (this.lastSaved && typeof this.lastSaved === "object") {
+        if (
+          this.lastSaved.getTime() + this.autosaveTime * 1000 < new Date().getTime() &&
+          this.dirty
+        ) {
+          shouldSave = true;
+        }
+      } else if (this.dirty) {
+        shouldSave = true;
+      }
+      if (!this.autosave) shouldSave = false;
+      if (shouldSave) this.save();
+    }, 1000);
     setTimeout(() => (this.ready = true), 10);
     axios
       .get("https://ipinfo.io/json?token=07089fada04d89")
@@ -77,14 +104,16 @@ export default class Home extends Vue {
         this.ipInfo = response.data;
       })
       .catch(() => {});
+    window.addEventListener("beforeunload", <any>this.listener);
   }
   timeago(text: Date) {
-    return time.ago(text);
+    return (<any>time).ago(text);
   }
   decode(text: string) {
     return decode_utf8(text);
   }
   save() {
+    console.log("save");
     this.loading = true;
     this.dirty = false;
     this.lastSaved = new Date();
@@ -101,25 +130,23 @@ export default class Home extends Vue {
       sha: this.sha,
       message
     };
-    axios
-      .put(
-        `https://api.github.com/repos/${this.repo}/contents/${
-          this.path
-        }?access_token=${this.token}`,
-        data,
-        {
-          headers: {
-            // "User-Agent": "GitWriter"
-          }
-        }
-      )
-      .then(response => {
-        this.sha = response.data.content.sha;
-      })
-      .catch(() => alert("There was an error saving this!"))
-      .then(() => (this.loading = false));
+    console.log(data);
+    // axios
+    //   .put(
+    //     `https://api.github.com/repos/${this.repo}/contents/${
+    //       this.path
+    //     }?access_token=${this.token}`,
+    //     data,
+    //   )
+    //   .then(response => {
+    //     this.sha = response.data.content.sha;
+    //   })
+    //   .catch(() => alert("There was an error saving this!"))
+    //   .then(() => (this.loading = false));
   }
   deleteFile() {
+    const ask = window.confirm(`Are you sure you want to delete ${this.path}?`);
+    if (!ask) return;
     this.loading = true;
     const data = {
       sha: this.sha,
@@ -129,12 +156,7 @@ export default class Home extends Vue {
       .delete(
         `https://api.github.com/repos/${this.repo}/contents/${
           this.path
-        }?access_token=${this.token}`,
-        {
-          headers: {
-            // "User-Agent": "GitWriter"
-          }
-        }
+        }?access_token=${this.token}`
       )
       .then(() => {
         this.$router.push(
@@ -143,6 +165,11 @@ export default class Home extends Vue {
       })
       .catch(() => alert("There was an error deleting this file"))
       .then(() => (this.loading = false));
+  }
+  beforeDestroy() {
+    console.log("saving");
+    window.removeEventListener("beforeunload", <any>this.listener);
+    clearInterval(this.interval);
   }
 }
 </script>
@@ -159,6 +186,20 @@ textarea {
   border: 1px solid #ddd;
   display: block;
   width: 100%;
+  &[type=number] {
+    display: inline-block;
+    padding: 0;
+    width: 3rem;
+    text-align: center;
+    margin: 0 0.5rem;
+  }
+  &[type=checkbox] {
+    display: inline-block;
+    padding: 0;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    width: auto;
+  }
 }
 input:disabled {
   background-color: whitesmoke;

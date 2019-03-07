@@ -63,12 +63,7 @@ export default class Home extends Vue {
       .get(
         `https://api.github.com/repos/${this.repo}/contents/${
           this.path
-        }?access_token=${this.token}`,
-        {
-          headers: {
-            // "User-Agent": "GitWriter"
-          }
-        }
+        }?access_token=${this.token}`
       )
       .then(response => {
         this.data = response.data;
