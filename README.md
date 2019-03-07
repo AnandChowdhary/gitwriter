@@ -26,7 +26,7 @@ Because GitWriter uses simplemde, it's open to XSS: [CVE-2018-19057](https://nvd
 
 ### Todo
 - [x] Autosaving
-- [ ] Add support for saving every 2 minutes if it's dirty (interval, not just on text change)
+- [x] Add support for saving every 2 minutes if it's dirty (interval, not just on text change)
 - [ ] Before unloading the page, make sure it's saved
 - [ ] Add login with GitHub (integrate GitHub App, not personal token)
 
