@@ -31,6 +31,24 @@
         <button v-if="data.length === 30" @click="page++">Next &rarr;</button> -->
       </p>
     </ul>
+    <div v-if="data.type !== 'file'">
+      <label>
+        <input
+          type="text"
+          v-model="newFile"
+          class="new-file"
+          placeholder="Enter file name"
+        />
+        <router-link
+          :to="
+            `/repos/${encode(repo)}/${encode(
+              trimchar(path + '/' + newFile, '/')
+            )}`
+          "
+          >Create a new file</router-link
+        >
+      </label>
+    </div>
   </main>
 </template>
 
@@ -50,12 +68,22 @@ export default class Home extends Vue {
   private loading: boolean = false;
   private repo: string = "";
   private path: string = "";
+  private newFile: string = "";
   mounted() {
     if (!this.$store.state.token) return this.$router.replace("/");
     this.token = this.$store.state.token;
     this.repo = atob(this.$route.params.repo);
     this.path = atob(this.$route.params.path);
     this.loadData();
+  }
+  trimchar(string: string, charToRemove: string) {
+    while (string.charAt(0) == charToRemove) {
+      string = string.substring(1);
+    }
+    while (string.charAt(string.length - 1) == charToRemove) {
+      string = string.substring(0, string.length - 1);
+    }
+    return string;
   }
   loadData() {
     this.loading = true;
@@ -68,7 +96,17 @@ export default class Home extends Vue {
       .then(response => {
         this.data = response.data;
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        if (error && error.response && error.response.data) {
+          if (error.response.data.message === "Not Found") {
+            this.data = {
+              type: "file",
+              path: this.path,
+              content: btoa("")
+            };
+          }
+        }
+      })
       .then(() => (this.loading = false));
   }
   encode(data: string) {
@@ -98,5 +136,13 @@ button {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+}
+.new-file {
+  font: inherit;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.2rem;
 }
 </style>

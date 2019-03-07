@@ -8,8 +8,11 @@
         placeholder="Start writing here..."
       />
       <div>
-        <input type="checkbox" id="auto" v-model="autosave">
-        <span><label for="auto">Autosave every</label> <input type="number" v-model="autosaveTime"> seconds</span>
+        <input type="checkbox" id="auto" v-model="autosave" />
+        <span
+          ><label for="auto">Autosave every</label>
+          <input type="number" v-model="autosaveTime" /> seconds</span
+        >
       </div>
       <button type="button" @click.prevent="save" :disabled="!dirty || loading">
         <span v-if="dirty">Save</span>
@@ -19,7 +22,7 @@
       <button type="button" @click.prevent="deleteFile" :disabled="loading">
         <span>Delete this file</span>
       </button>
-      <p v-if="lastSaved">Last saved {{ timeago(lastSaved) }}</p>
+      <p v-if="dirty">You have unsaved changes.</p>
     </div>
   </main>
 </template>
@@ -31,16 +34,10 @@ import { Base64 } from "js-base64";
 import UAParser from "ua-parser-js";
 // @ts-ignore
 import markdownEditor from "vue-simplemde/src/markdown-editor";
-// @ts-ignore
-import time from "time-ago";
+// import time from "time-ago";
 
-function encode_utf8(s: string) {
-  return Base64.encode(s);
-}
-
-function decode_utf8(s: string) {
-  return Base64.decode(s);
-}
+const encode_utf8 = (s: string) => Base64.encode(s);
+const decode_utf8 = (s: string) => Base64.decode(s);
 
 @Component({
   components: {
@@ -76,7 +73,7 @@ export default class Home extends Vue {
         // @ts-ignore
         event.returnValue = "";
       }
-    }
+    };
   }
   mounted() {
     this.sha = this.file.sha;
@@ -86,7 +83,8 @@ export default class Home extends Vue {
       let shouldSave = false;
       if (this.lastSaved && typeof this.lastSaved === "object") {
         if (
-          this.lastSaved.getTime() + this.autosaveTime * 1000 < new Date().getTime() &&
+          this.lastSaved.getTime() + this.autosaveTime * 1000 <
+            new Date().getTime() &&
           this.dirty
         ) {
           shouldSave = true;
@@ -104,16 +102,12 @@ export default class Home extends Vue {
         this.ipInfo = response.data;
       })
       .catch(() => {});
-    window.addEventListener("beforeunload", <any>this.listener);
-  }
-  timeago(text: Date) {
-    return (<any>time).ago(text);
+    // window.addEventListener("beforeunload", <any>this.listener);
   }
   decode(text: string) {
     return decode_utf8(text);
   }
   save() {
-    console.log("save");
     this.loading = true;
     this.dirty = false;
     this.lastSaved = new Date();
@@ -130,19 +124,18 @@ export default class Home extends Vue {
       sha: this.sha,
       message
     };
-    console.log(data);
-    // axios
-    //   .put(
-    //     `https://api.github.com/repos/${this.repo}/contents/${
-    //       this.path
-    //     }?access_token=${this.token}`,
-    //     data,
-    //   )
-    //   .then(response => {
-    //     this.sha = response.data.content.sha;
-    //   })
-    //   .catch(() => alert("There was an error saving this!"))
-    //   .then(() => (this.loading = false));
+    axios
+      .put(
+        `https://api.github.com/repos/${this.repo}/contents/${
+          this.path
+        }?access_token=${this.token}`,
+        data
+      )
+      .then(response => {
+        this.sha = response.data.content.sha;
+      })
+      .catch(() => alert("There was an error saving this!"))
+      .then(() => (this.loading = false));
   }
   deleteFile() {
     const ask = window.confirm(`Are you sure you want to delete ${this.path}?`);
@@ -156,7 +149,13 @@ export default class Home extends Vue {
       .delete(
         `https://api.github.com/repos/${this.repo}/contents/${
           this.path
-        }?access_token=${this.token}`
+        }?access_token=${this.token}`,
+        {
+          data: {
+            sha: this.sha,
+            message: "Delete file using GitWriter"
+          }
+        }
       )
       .then(() => {
         this.$router.push(
@@ -167,8 +166,7 @@ export default class Home extends Vue {
       .then(() => (this.loading = false));
   }
   beforeDestroy() {
-    console.log("saving");
-    window.removeEventListener("beforeunload", <any>this.listener);
+    // window.removeEventListener("beforeunload", <any>this.listener);
     clearInterval(this.interval);
   }
 }
@@ -186,14 +184,14 @@ textarea {
   border: 1px solid #ddd;
   display: block;
   width: 100%;
-  &[type=number] {
+  &[type="number"] {
     display: inline-block;
     padding: 0;
     width: 3rem;
     text-align: center;
     margin: 0 0.5rem;
   }
-  &[type=checkbox] {
+  &[type="checkbox"] {
     display: inline-block;
     padding: 0;
     vertical-align: middle;
