@@ -880,17 +880,17 @@
     eslint "^4.19.1"
     eslint-plugin-vue "^4.7.1"
 
-"@vue/cli-plugin-typescript@^3.4.0":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-typescript/-/cli-plugin-typescript-3.4.1.tgz#bb64ead2dc859da32555160e4680ecb252ab7152"
-  integrity sha512-OAlS4RLikwvhyFsUrwBMMPpQTSU2vp2DvES/Nk4sZcERoB5pXB6W1jk/lC51OyreBSj9jzqO6u0X3kke1xI9Dg==
+"@vue/cli-plugin-typescript@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-typescript/-/cli-plugin-typescript-3.5.0.tgz#43c18b250b62d769f4551ce12175c54ecb540fbf"
+  integrity sha512-z/4uo+f5PVNjj5hushRLSF3F56ZDK2d86G1Dy5n7DvsZhTe8sLzu86575V1Az696LvI/HXV440t8RXl5Isss2Q==
   dependencies:
     "@types/webpack-env" "^1.13.6"
-    "@vue/cli-shared-utils" "^3.4.1"
+    "@vue/cli-shared-utils" "^3.5.0"
     fork-ts-checker-webpack-plugin "^0.5.2"
     globby "^9.0.0"
     ts-loader "^5.3.3"
-    tslint "^5.12.1"
+    tslint "^5.13.0"
     webpack ">=4 < 4.29"
 
 "@vue/cli-service@^3.5.0":
@@ -7950,7 +7950,7 @@ tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
-tslint@^5.12.1:
+tslint@^5.13.0:
   version "5.13.1"
   resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.13.1.tgz#fbc0541c425647a33cd9108ce4fd4cd18d7904ed"
   integrity sha512-fplQqb2miLbcPhyHoMV4FU9PtNRbgmm/zI5d3SZwwmJQM6V0eodju+hplpyfhLWpmwrDNfNYU57uYRb8s0zZoQ==
