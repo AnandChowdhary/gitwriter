@@ -112,7 +112,7 @@ export default class Home extends Vue {
     this.dirty = false;
     this.lastSaved = new Date();
     const ua = new UAParser().getResult();
-    let message = `Edited using GitWriter (${ua.browser.name} ${
+    let message = `:memo: Edited using GitWriter (${ua.browser.name} ${
       ua.browser.major
     } on ${ua.os.name} ${ua.os.version}`;
     if (this.ipInfo) {
@@ -153,7 +153,7 @@ export default class Home extends Vue {
         {
           data: {
             sha: this.sha,
-            message: "Delete file using GitWriter"
+            message: ":memo: Delete file using GitWriter"
           }
         }
       )
