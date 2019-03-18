@@ -112,13 +112,12 @@ export default class Home extends Vue {
     this.dirty = false;
     this.lastSaved = new Date();
     const ua = new UAParser().getResult();
-    let message = `:memo: Edited using GitWriter (${ua.browser.name} ${
+    let message = `:memo: Edited using GitWriter \n ${ua.browser.name} ${
       ua.browser.major
     } on ${ua.os.name} ${ua.os.version}`;
     if (this.ipInfo) {
       message += ` in ${this.ipInfo.city}, ${this.ipInfo.country}`;
     }
-    message += ")";
     const data = {
       content: encode_utf8(this.content),
       sha: this.sha,
