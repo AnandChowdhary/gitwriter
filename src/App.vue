@@ -4,6 +4,7 @@
       <router-link class="logo" to="/">GitWriter</router-link>
       <div>
         <button type="button" @click="forgetToken">Forget token</button>
+        <button type="button" @click="forgetRepos">Update repos</button>
         <!-- <button type="button" @click="forgetRepos">Forget repos</button> -->
       </div>
     </header>
@@ -23,6 +24,7 @@ export default class App extends Vue {
   forgetRepos() {
     this.$store.commit("resetRepos");
     this.$router.push("/repos");
+    location.reload();
   }
 }
 </script>
