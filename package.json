@@ -13,7 +13,7 @@
     "time-ago": "^0.2.1",
     "ua-parser-js": "^0.7.19",
     "vue": "^2.6.10",
-    "vue-class-component": "^7.0.1",
+    "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.1",
     "vue-simplemde": "^0.5.1",
