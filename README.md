@@ -10,7 +10,11 @@ GitWriter is the easiest way to version control your thoughts. Write in Markdown
 
 ## ⭐ Usage
 
-Currently, a personal access token is required to use this service. Eventually, a "Login with GitHub" button would be preferred. The service is frontend-only and only uses local storage for your token.
+Login with GitHub, choose your repo and file, and just start writing.
+
+The service is frontend-only and only uses local storage for your token. Since GitHub's OAuth endpoints don't support CORS, it also uses [Cors Anywhere](https://github.com/Rob--W/cors-anywhere/).
+
+![Screenshot](https://raw.githubusercontent.com/AnandChowdhary/gitwriter/master/public/screenshot.png)
 
 ## 🛠 Development
 
