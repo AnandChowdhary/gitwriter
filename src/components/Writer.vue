@@ -7,22 +7,35 @@
         v-model="content"
         placeholder="Start writing here..."
       />
-      <div>
-        <input type="checkbox" id="auto" v-model="autosave" />
-        <span
-          ><label for="auto">Autosave every</label>
-          <input type="number" v-model="autosaveTime" /> seconds</span
+      <footer>
+        <div
+          style="display: flex; justify-content: center; align-items: center; margin-right: 1rem"
         >
-      </div>
-      <button type="button" @click.prevent="save" :disabled="!dirty || loading">
-        <span v-if="dirty">Save</span>
-        <span v-else-if="loading">Saving...</span>
-        <span v-else>No changes</span>
-      </button>
-      <button type="button" @click.prevent="deleteFile" :disabled="loading">
-        <span>Delete this file</span>
-      </button>
-      <p v-if="dirty">You have unsaved changes.</p>
+          <input type="checkbox" id="auto" v-model="autosave" />
+          <span
+            ><label for="auto">Autosave every</label>
+            <input type="number" v-model="autosaveTime" /> seconds</span
+          >
+        </div>
+        <button
+          type="button"
+          @click.prevent="save"
+          :disabled="!dirty || loading"
+        >
+          <span v-if="dirty">Save</span>
+          <span v-else-if="loading">Saving...</span>
+          <span v-else>No changes to save</span>
+        </button>
+        <button
+          type="button"
+          @click.prevent="deleteFile"
+          :disabled="loading"
+          class="delete"
+        >
+          <span>Delete this file</span>
+        </button>
+        <p v-if="dirty">You have unsaved changes.</p>
+      </footer>
     </div>
   </main>
 </template>
@@ -171,7 +184,29 @@ export default class Home extends Vue {
 }
 </script>
 
+<style>
+.CodeMirror-fullscreen,
+.editor-preview-side {
+  bottom: 5rem !important;
+}
+</style>
+
 <style lang="scss" scoped>
+main {
+  margin-bottom: 5rem;
+}
+footer {
+  background: whitesmoke;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 1rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+}
 input,
 textarea {
   font: inherit;
@@ -194,6 +229,7 @@ textarea {
     display: inline-block;
     padding: 0;
     vertical-align: middle;
+    margin: 0;
     margin-right: 0.5rem;
     width: auto;
   }
@@ -207,11 +243,15 @@ button {
   border-radius: 0.25rem;
   margin-right: 0.5rem;
   box-sizing: border-box;
-  margin-top: 1rem;
   background-color: whitesmoke;
   color: #000;
   &:disabled {
     opacity: 0.5;
+  }
+  &.delete {
+    background-color: transparent;
+    border: 0;
+    color: #c0392b;
   }
 }
 </style>
