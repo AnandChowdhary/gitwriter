@@ -1,15 +1,8 @@
 <template>
   <main>
-    <form @submit.prevent="login">
-      <label>Token</label>
-      <input
-        v-model="token"
-        type="text"
-        placeholder="Enter your token"
-        required
-      />
-      <button type="submit">Start using GitWriter &rarr;</button>
-    </form>
+    <button type="button" @click.prevent="login">
+      Login with GitHub &rarr;
+    </button>
   </main>
 </template>
 
@@ -25,8 +18,12 @@ export default class Home extends Vue {
     }
   }
   login() {
-    this.$store.commit("setToken", this.token);
-    this.$router.push("/repos");
+    const url = `https://github.com/login/oauth/authorize?client_id=Iv1.a77202ac17a2de57&redirect_uri=${encodeURIComponent(
+      location.href + "callback"
+    )}&scope=${encodeURIComponent("repo user")}`;
+    window.location.href = url;
+    // this.$store.commit("setToken", this.token);
+    // this.$router.push("/repos");
   }
 }
 </script>

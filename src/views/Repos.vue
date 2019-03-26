@@ -3,7 +3,12 @@
     <div v-if="loading">Loading...</div>
     <div v-else>
       <form>
-        <input type="search" @input="filter" v-model="filterText" placeholder="Find your repo...">
+        <input
+          type="search"
+          @input="filter"
+          v-model="filterText"
+          placeholder="Find your repo..."
+        />
       </form>
       <ul class="list">
         <li v-for="(repo, index) in filteredData" :key="`repo_${index}`">
@@ -51,12 +56,12 @@ export default class Home extends Vue {
     this.loading = true;
     axios
       .get(
-        `https://api.github.com/user/repos?access_token=${this.token}&page=${
-          page || this.page
-        }`
+        `https://api.github.com/user/repos?access_token=${
+          this.token
+        }&page=${page || this.page}`
       )
       .then(response => {
-        this.data = [ ...this.data, ...response.data ];
+        this.data = [...this.data, ...response.data];
         if (response.data.length === 30) {
           this.loadData((page || this.page) + 1);
         } else {
@@ -72,7 +77,9 @@ export default class Home extends Vue {
   }
   filter() {
     if (this.filterText) {
-      this.filteredData = this.data.filter((repo: any) => repo.full_name.includes(this.filterText));
+      this.filteredData = this.data.filter((repo: any) =>
+        repo.full_name.includes(this.filterText)
+      );
     } else {
       this.filteredData = this.data;
     }

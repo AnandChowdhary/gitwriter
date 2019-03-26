@@ -2,10 +2,9 @@
   <div id="app">
     <header>
       <router-link class="logo" to="/">GitWriter</router-link>
-      <div>
-        <button type="button" @click="forgetToken">Forget token</button>
-        <button type="button" @click="forgetRepos">Update repos</button>
-        <!-- <button type="button" @click="forgetRepos">Forget repos</button> -->
+      <div v-if="hasToken">
+        <button type="button" @click="forgetRepos">Sync repos</button>
+        <button type="button" @click="forgetToken">Logout</button>
       </div>
     </header>
     <router-view :key="$route.fullPath" />
@@ -13,10 +12,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { mapGetters } from "vuex";
 
-@Component({})
+@Component({
+  computed: {
+    ...mapGetters(["token"])
+  }
+})
 export default class App extends Vue {
+  token!: string;
+  hasToken: boolean = false;
+  @Watch("token")
+  onTokenChanged() {
+    this.updateNav();
+  }
+  mounted() {
+    this.updateNav();
+  }
+  updateNav() {
+    this.hasToken = !!this.token;
+  }
   forgetToken() {
     this.$store.commit("logout");
     this.$router.push("/");

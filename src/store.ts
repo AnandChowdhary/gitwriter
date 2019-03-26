@@ -23,6 +23,11 @@ export default new Vuex.Store({
       state.token = null;
     }
   },
+  getters: {
+    token(state) {
+      return state.token;
+    }
+  },
   actions: {},
   plugins: [createPersistedState()]
 });
