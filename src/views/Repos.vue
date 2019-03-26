@@ -12,15 +12,10 @@
       </form>
       <ul class="list">
         <li v-for="(repo, index) in filteredData" :key="`repo_${index}`">
-          <router-link :to="`/repos/${encode(repo.full_name)}/${encode('/')}`">
+          <router-link :to="`/${repo.full_name}`">
             <span>{{ repo.full_name }}</span>
           </router-link>
         </li>
-        <!-- <p>
-          <button>{{ page }}</button>
-          <button v-if="page > 1" @click="page--">&larr; Prev</button>
-          <button v-if="data.length === 30" @click="page++">Next &rarr;</button>
-        </p> -->
       </ul>
     </div>
   </main>

@@ -11,7 +11,7 @@
     >
     <ul class="list" v-else>
       <li v-for="(file, index) in data" :key="`file_${index}`">
-        <router-link :to="`/repos/${encode(repo)}/${encode(file.path)}`">
+        <router-link :to="`/${repo}/${file.path}`">
           <span
             v-if="file.path.indexOf('.') > -1"
             :style="
@@ -25,11 +25,6 @@
           <span>{{ file.name }}</span>
         </router-link>
       </li>
-      <p>
-        <!-- <button>{{page}}</button> -->
-        <!-- <button v-if="page > 1" @click="page--">&larr; Prev</button>
-        <button v-if="data.length === 30" @click="page++">Next &rarr;</button> -->
-      </p>
     </ul>
     <div v-if="data.type !== 'file'">
       <label>
@@ -39,12 +34,7 @@
           class="new-file"
           placeholder="Enter file name"
         />
-        <router-link
-          :to="
-            `/repos/${encode(repo)}/${encode(
-              trimchar(path + '/' + newFile, '/')
-            )}`
-          "
+        <router-link :to="`/${repo}/${trimchar((path || '') + newFile, '/')}`"
           >Create a new file</router-link
         >
       </label>
@@ -72,8 +62,8 @@ export default class Home extends Vue {
   mounted() {
     if (!this.$store.state.token) return this.$router.replace("/");
     this.token = this.$store.state.token;
-    this.repo = atob(this.$route.params.repo);
-    this.path = atob(this.$route.params.path);
+    this.repo = `${this.$route.params.owner}/${this.$route.params.repo}`;
+    this.path = this.$route.fullPath.split(this.repo + "/")[1];
     this.loadData();
   }
   trimchar(string: string, charToRemove: string) {
@@ -89,9 +79,8 @@ export default class Home extends Vue {
     this.loading = true;
     axios
       .get(
-        `https://api.github.com/repos/${this.repo}/contents/${
-          this.path
-        }?access_token=${this.token}`
+        `https://api.github.com/repos/${this.repo}/contents/${this.path ||
+          ""}?access_token=${this.token}`
       )
       .then(response => {
         this.data = response.data;

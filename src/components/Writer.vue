@@ -138,9 +138,8 @@ export default class Home extends Vue {
     };
     axios
       .put(
-        `https://api.github.com/repos/${this.repo}/contents/${
-          this.path
-        }?access_token=${this.token}`,
+        `https://api.github.com/repos/${this.repo}/contents/${this.path ||
+          ""}?access_token=${this.token}`,
         data
       )
       .then(response => {
@@ -159,9 +158,8 @@ export default class Home extends Vue {
     };
     axios
       .delete(
-        `https://api.github.com/repos/${this.repo}/contents/${
-          this.path
-        }?access_token=${this.token}`,
+        `https://api.github.com/repos/${this.repo}/contents/${this.path ||
+          ""}?access_token=${this.token}`,
         {
           data: {
             sha: this.sha,
@@ -170,9 +168,7 @@ export default class Home extends Vue {
         }
       )
       .then(() => {
-        this.$router.push(
-          `/repos/${encode_utf8(this.repo)}/${encode_utf8("/")}`
-        );
+        this.$router.push(`/${this.repo}`);
       })
       .catch(() => alert("There was an error deleting this file"))
       .then(() => (this.loading = false));

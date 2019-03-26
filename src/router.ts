@@ -22,14 +22,15 @@ export default new Router({
       component: Repos
     },
     {
-      path: "/repos/:repo/:path",
-      name: "contents",
-      component: Contents
-    },
-    {
       path: "/callback",
       name: "callback",
       component: Callback
+    },
+    {
+      path: "/:owner/:repo",
+      alias: ["/:owner/:repo/*"],
+      name: "contents",
+      component: Contents
     }
   ]
 });
