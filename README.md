@@ -32,6 +32,7 @@ Because GitWriter uses simplemde, it's open to XSS: [CVE-2018-19057](https://nvd
 - [x] Autosaving
 - [x] Add support for saving every 2 minutes if it's dirty (interval, not just on text change)
 - [ ] Before unloading the page, make sure it's saved
+- [ ] Use `localStorage` for every change, so you don't lose anything
 - [x] Better auto-commit message
 - [x] Add login with GitHub (integrate GitHub App, not personal token)
 - [x] Show all repos, support filter/search
