@@ -6,7 +6,7 @@
         required
         v-model="content"
         placeholder="Start writing here..."
-      />
+      />e
       <footer>
         <div
           style="display: flex; justify-content: center; align-items: center; margin-right: 1rem"
@@ -131,6 +131,7 @@ export default class Home extends Vue {
     if (this.ipInfo) {
       message += ` in ${this.ipInfo.city}, ${this.ipInfo.country}`;
     }
+    message += ": https://gitwriter.netlify.com";
     const data = {
       content: encode_utf8(this.content),
       sha: this.sha,
