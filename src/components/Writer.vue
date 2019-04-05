@@ -6,7 +6,7 @@
         required
         v-model="content"
         placeholder="Start writing here..."
-      />e
+      />
       <footer>
         <div
           style="display: flex; justify-content: center; align-items: center; margin-right: 1rem"
