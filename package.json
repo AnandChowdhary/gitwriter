@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/js-base64": "^2.3.1",
-    "@types/ua-parser-js": "^0.7.32",
+    "@types/ua-parser-js": "^0.7.33",
     "@vue/cli-plugin-babel": "^3.5.5",
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-plugin-typescript": "^3.5.3",
