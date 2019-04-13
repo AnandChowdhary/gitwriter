@@ -867,15 +867,15 @@
     babel-loader "^8.0.5"
     webpack ">=4 < 4.29"
 
-"@vue/cli-plugin-eslint@^3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-eslint/-/cli-plugin-eslint-3.5.1.tgz#20b4689be35d6b2146cbde2eb6f9d2f3033a0e81"
-  integrity sha512-0RSF3LPOXUIgArrg06HK1Yg6wcR348wssVX3pG41zxDAGTmfe8TpL2XPiP/KinrYwQLSUBPbr8zdf9Hb1+Tv2w==
+"@vue/cli-plugin-eslint@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-eslint/-/cli-plugin-eslint-3.6.0.tgz#83bd27a3cc8166c49acd4adc15d91c1dc13c9c1e"
+  integrity sha512-jY/Lvkzv+tBdBFj6DmzZaUw4cFGom5kyxpTUPzM2swsWQITApg+0GmFq/VnH7lVY81fuOBmiFgL1YI+4WX6wKQ==
   dependencies:
-    "@vue/cli-shared-utils" "^3.5.1"
+    "@vue/cli-shared-utils" "^3.6.0"
     babel-eslint "^10.0.1"
     eslint-loader "^2.1.2"
-    globby "^9.0.0"
+    globby "^9.2.0"
     webpack ">=4 < 4.29"
   optionalDependencies:
     eslint "^4.19.1"
@@ -3938,7 +3938,7 @@ globby@^7.1.1:
     pify "^3.0.0"
     slash "^1.0.0"
 
-globby@^9.0.0, globby@^9.2.0:
+globby@^9.2.0:
   version "9.2.0"
   resolved "https://registry.yarnpkg.com/globby/-/globby-9.2.0.tgz#fd029a706c703d29bdd170f4b6db3a3f7a7cb63d"
   integrity sha512-ollPHROa5mcxDEkwg6bPt3QbEf4pDQSNtd6JPL1YvOvAo/7/0VAm9TccUeoTmarjPw4pfUthSCqcyfNB1I3ZSg==
