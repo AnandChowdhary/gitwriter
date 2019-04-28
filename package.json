@@ -25,7 +25,7 @@
     "@types/ua-parser-js": "^0.7.32",
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
-    "@vue/cli-plugin-typescript": "^3.6.0",
+    "@vue/cli-plugin-typescript": "^3.7.0",
     "@vue/cli-service": "^3.6.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
