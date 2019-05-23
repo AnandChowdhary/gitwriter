@@ -5211,11 +5211,6 @@ marked@*:
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.1.tgz#a63addde477bca9613028de4b2bc3629e53a0562"
   integrity sha512-+H0L3ibcWhAZE02SKMqmvYsErLo4EAVJxu5h3bHBBDvvjeWXtl92rGUSBYHL2++5Y+RSNgl8dYOAXcYe7lp1fA==
 
-marked@^0.3.6:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
-  integrity sha512-ea2eGWOqNxPcXv8dyERdSr/6FmzvWwzjMxpfGB/sbMccXoct+xY+YukPD+QTUZwyvK7BZwcr4m21WBOW41pAkg==
-
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"
@@ -7438,7 +7433,7 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simplemde@^1.11.2:
+simplemde@*:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/simplemde/-/simplemde-1.11.2.tgz#a23a35d978d2c40ef07dec008c92f070d8e080e3"
   integrity sha1-ojo12XjSxA7wfewAjJLwcNjggOM=
@@ -8526,13 +8521,13 @@ vue-router@^3.0.6:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
   integrity sha512-Ox0ciFLswtSGRTHYhGvx2L44sVbTPNS+uD2kRISuo8B39Y79rOo0Kw0hzupTmiVtftQYCZl87mwldhh2L9Aquw==
 
-vue-simplemde@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-0.5.1.tgz#772d93215f107f6e10b4ecd80eb1425b73dd5d28"
-  integrity sha512-JGJRZY6yhIPiOveedomJEO3p1RWjZxikOLT6NQ3l7KFtIkwbUQ0tYVoER3zGeSMfPGlyzk0EVBPfgHzIviV7qw==
+vue-simplemde@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-0.5.2.tgz#11d6a2297346aa1563a6e04c29168c8dcd527ea0"
+  integrity sha512-JccYiU/DCk2+q0+jwV/gru+2XUA8V/jHPN4R/I7C4yKqEfk/TnxtbM5n7NQ+DrGZmt6YfkliH0nnyd9PD8u45A==
   dependencies:
-    marked "^0.3.6"
-    simplemde "^1.11.2"
+    marked "*"
+    simplemde "*"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
