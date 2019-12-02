@@ -9138,10 +9138,10 @@ vue-router@^3.1.3:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.3.tgz#e6b14fabc0c0ee9fda0e2cbbda74b350e28e412b"
   integrity sha512-8iSa4mGNXBjyuSZFCCO4fiKfvzqk+mhL0lnKuGcQtO1eoj8nq3CmbEG8FwK5QqoqwDgsjsf1GDuisDX4cdb/aQ==
 
-vue-simplemde@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-0.5.2.tgz#11d6a2297346aa1563a6e04c29168c8dcd527ea0"
-  integrity sha512-JccYiU/DCk2+q0+jwV/gru+2XUA8V/jHPN4R/I7C4yKqEfk/TnxtbM5n7NQ+DrGZmt6YfkliH0nnyd9PD8u45A==
+vue-simplemde@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-1.0.2.tgz#600c58ce75987ac22e61edd8333f025d8168db0d"
+  integrity sha512-r20ep67+gzI2kwlZQyRFN9KRvXkUCbAWjzcFlVAIpo6Ls5yijpX4rm6DmayVXS9U2QccRWEcHyFAs7bYUoZ+4A==
   dependencies:
     marked "*"
     simplemde "*"
