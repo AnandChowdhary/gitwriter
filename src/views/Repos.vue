@@ -64,7 +64,7 @@ export default class Home extends Vue {
         }
         this.filter();
       })
-      .catch(error => console.log(error))
+      .catch(error => {})
       .then(() => (this.loading = false));
   }
   encode(data: string) {
