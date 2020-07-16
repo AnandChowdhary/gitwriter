@@ -5524,10 +5524,15 @@ javascript-stringify@^1.6.0:
   resolved "https://registry.yarnpkg.com/javascript-stringify/-/javascript-stringify-1.6.0.tgz#142d111f3a6e3dae8f4a9afd77d45855b5a9cce3"
   integrity sha1-FC0RHzpuPa6PSpr9d9RYVbWpzOM=
 
-js-base64@^2.1.8, js-base64@^2.6.3:
+js-base64@^2.1.8:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.3.tgz#7afdb9b57aa7717e15d370b66e8f36a9cb835dc3"
   integrity sha512-fiUvdfCaAXoQTHdKMgTvg6IkecXDcVz6V5rlftUTclF9IKBjMizvSdQaCl/z/6TApDeby5NL+axYou3i0mu1Pg==
+
+js-base64@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.0.3.tgz#a87de6469722eb41bbb046cc8e47f851d7da8c91"
+  integrity sha512-pWePRgR1Fvpy22Ovy5n1HNS4Ncm/FKp2hFEtcIebsNcXOB3Bf7d7/QUac9ITDY3dLKF4qi4xPt3pYA9FGXF4KA==
 
 js-message@1.0.5:
   version "1.0.5"
