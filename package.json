@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
-    "js-base64": "^3.4.5",
+    "js-base64": "^3.5.2",
     "time-ago": "^0.2.1",
     "ua-parser-js": "^0.7.21",
     "vue": "^2.6.12",
